@@ -1,6 +1,8 @@
 author: mongoose-os
 description: A JS-enabled demo Mongoose OS firmware
 # arch: PLATFORM
+# flash --esp-baud-rate 9600
+
 version: 1.0
 manifest_version: 2017-05-18
 libs_version: ${mos.version}
@@ -8,8 +10,21 @@ modules_version: ${mos.version}
 mongoose_os_version: ${mos.version}
 
 config_schema:
-  - ["mqtt.server", "iot.eclipse.org:1883"]
   - ["i2c.enable", true]
+  - ["device.id", "esp8266_weathersta"]
+  - ["mqtt.enable", true]
+  - ["mqtt.server", "192.168.8.1:1883"]
+  - ["wifi.sta.enable", true]
+  - ["wifi.sta.ssid", "MT300N"]
+  - ["wifi.sta.pass", "1234567890"]
+  - ["wifi.ap.enable", false]
+  - ["http.enable", false]
+  - ["shadow.enable", false]
+  - ["sntp.enable", false]
+
+
+build_vars:
+  MGOS_ADC_MODE_VDD: 1
 
 tags:
   - js
@@ -20,3 +35,5 @@ filesystem:
 libs:
   - origin: https://github.com/mongoose-os-libs/boards
   - origin: https://github.com/mongoose-os-libs/js-demo-bundle
+  - origin: https://github.com/mongoose-os-libs/bme280
+
